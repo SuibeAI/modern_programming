@@ -1,28 +1,47 @@
-# 现代程序设计：Bash、Git、Vibe Coding 与 Specification 编写
+# 现代智能编程开发实践
 
-这是一个 16 课时、8 周、每周 2 课时的 Jupyter Notebook 课程仓库。课程面向希望系统掌握现代编程工作流的学习者，内容从命令行基础开始，逐步进入版本控制、AI 辅助编程（Vibe Coding）和 specification 编写机器。
+本仓库是“现代智能编程开发实践”课程的 Jupyter Notebook 书稿。课程用 8 周、16 课时讲解现代软件开发的基础工作流：先掌握 Shell、Git、VSCode 和 Python 环境，再学习如何把 AI 工具纳入理解、实现、调试、重构和验证过程。
 
-## 仓库结构
+## 课程目标
 
-- `books/`：课程 Notebook 与 Markdown 页面。
-- `codes/`：课程示例代码与可复用脚本。
-- `papers/`：参考论文、文章或外部资料。
-- `slides/`：课堂讲义或演示材料。
-- `_build/books/`：本地构建产物，由构建脚本生成。
+- 能在命令行中完成文件、文本、进程和项目管理任务。
+- 能用 Git 组织个人开发历史，并处理基础协作场景。
+- 能配置 VSCode、Python 环境和远程开发工作流。
+- 能把 AI 工具用于读代码、写代码、调试、重构和补测试。
+- 能编写清晰、可验证、可迭代的 specification，并连接到代码实现和验收测试。
 
 ## 课程主线
 
-1. Bash：文件系统、管道、重定向、脚本与自动化。
-2. Git：提交、分支、合并、冲突处理与协作工作流。
-3. Vibe Coding：用 AI 进行探索式实现、调试、重构与验证。
-4. Specification 编写机器：把需求、约束、验收标准和测试转化为可执行的软件规格。
+- Shell 入门：WSL 安装、Shell 命令、文件系统、文件查看与编辑、管道与重定向、环境变量、Shell 脚本。
+- VSCode：VSCode 安装、基础配置、插件管理、SSH 远程访问。
+- Python 环境管理：Python、Conda、虚拟环境、`PYTHONPATH`、依赖安装。
+- Git 版本管理：提交、分支、合并、冲突、远程协作、代码审查。
+- 大模型简介：大模型基本原理、API 调用、在 Python 中调用大模型。
+- AI Agent：从零开始构建一个简单 AI Agent。
+- AI Coding Agent：用 AI 辅助读代码、写代码、调试、重构和补测试。
+- 项目实战：从需求、specification、实现到验证的完整小项目。
+
+## 仓库结构
+
+- `books/`：课程正文、Notebook、章节说明和补充阅读材料。
+- `codes/`：课程代码示例或课堂练习代码。
+- `slides/`：课程幻灯片素材。
+- `papers/`：大模型或 AI Agent 章节需要参考的论文和资料。
+- `book_generate.sh`：生成 Jupyter Book 聚合源或静态网站。
+- `book_start.sh`：启动本地预览服务。
 
 ## 构建与预览
 
-构建静态书籍：
+生成静态网站：
 
 ```bash
 ./book_generate.sh
+```
+
+只生成聚合源，不构建 HTML：
+
+```bash
+./book_generate.sh ./books ./_build/books source
 ```
 
 本地预览：
@@ -31,4 +50,4 @@
 ./book_start.sh
 ```
 
-默认预览地址为 `http://127.0.0.1:8000`。
+默认预览地址为 `http://127.0.0.1:8000`。Shell 入门章节可访问 `http://127.0.0.1:8000/books/shell`。
