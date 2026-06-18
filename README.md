@@ -14,7 +14,7 @@
 
 - Shell 入门：WSL 安装、Shell 命令、文件系统、文件查看与编辑、管道与重定向、环境变量、Shell 脚本。
 - VSCode：VSCode 安装、基础配置、插件管理、SSH 远程访问。
-- Python 环境管理：Python、Conda、虚拟环境、`PYTHONPATH`、依赖安装。
+- Python 环境管理：Python 解释器、Python 包、`PYTHONPATH`、`pip` 依赖安装、虚拟环境、Conda、uv、pdb 调试。
 - Git 版本管理：提交、分支、合并、冲突、远程协作、代码审查。
 - 大模型简介：大模型基本原理、API 调用、在 Python 中调用大模型。
 - AI Agent：从零开始构建一个简单 AI Agent。
@@ -51,4 +51,3 @@
 ```
 
 默认预览地址为 `http://127.0.0.1:8000`。Shell 入门章节可访问 `http://127.0.0.1:8000/books/shell`。
-
