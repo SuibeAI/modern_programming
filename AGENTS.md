@@ -70,6 +70,8 @@
 
 不是每一节都必须包含代码单元。对于 Shell 课程，Markdown 中的命令块通常更适合课堂讲解；只有需要在 notebook 内直接执行时才添加代码单元。
 
+Git 章节采用更偏练习的组织方式：讲解文字使用 Markdown cell；学生需要输入或复制的 Shell/Git 命令使用独立 code cell，并将 cell 语言标记为 Bash/Shell Script；命令输出示例继续使用 Markdown 中的 `text` 代码块；Mermaid 图继续使用 Markdown 中的 `mermaid` 代码块。涉及 `reset`、`push`、`remote` 等可能影响仓库状态的命令时，练习应明确要求在独立练习目录或测试仓库中运行，不要在课程项目仓库中直接操作。
+
 ## Markdown 规范
 
 - 标题要直接表达教学意图，例如“命令在哪里”“文件查看与编辑”。

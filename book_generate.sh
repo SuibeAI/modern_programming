@@ -240,7 +240,43 @@ def create_python_aliases() -> list[Path]:
         created.append(dest)
     return created
 
-alias_pages = create_shell_aliases() + create_vscode_aliases() + create_python_aliases()
+def create_git_aliases() -> list[Path]:
+    src_dir = books_dir / "04_版本控制Git"
+    if not src_dir.exists():
+        return []
+
+    dest_dir = books_dir / "git"
+    shutil.rmtree(dest_dir, ignore_errors=True)
+
+    def ignore_notebooks(_dir: str, names: list[str]) -> list[str]:
+        return [name for name in names if Path(name).suffix.lower() in {".ipynb", ".md", ".rst"}]
+
+    shutil.copytree(src_dir, dest_dir, ignore=ignore_notebooks)
+
+    file_map = {
+        "01_概览.ipynb": "index.ipynb",
+        "02_Git基本原理与分支.ipynb": "basics.ipynb",
+        "03_工作区暂存区与提交.ipynb": "commit.ipynb",
+        "04_查看修改与回退.ipynb": "diff-restore.ipynb",
+        "05_远程仓库与协作.ipynb": "remote.ipynb",
+        "07_AI_Coding_Agent与Git.ipynb": "ai-agent-git.ipynb",
+        "08_更多内容.ipynb": "advanced.ipynb",
+    }
+
+    created = []
+    for old_name, new_name in file_map.items():
+        src = src_dir / old_name
+        if not src.exists():
+            continue
+        dest = dest_dir / new_name
+        copy_with_rewritten_links(src, dest, file_map)
+        rel = dest.relative_to(source_dir).as_posix()
+        alias_titles[rel] = Path(old_name).stem
+        page_order[rel] = len(created)
+        created.append(dest)
+    return created
+
+alias_pages = create_shell_aliases() + create_vscode_aliases() + create_python_aliases() + create_git_aliases()
 
 pages = sorted(
     p for p in books_dir.rglob("*")
@@ -248,7 +284,7 @@ pages = sorted(
     and not any(part.startswith((".", "_")) for part in p.relative_to(books_dir).parts)
     and not (
         p.relative_to(books_dir).parts
-        and p.relative_to(books_dir).parts[0] in {"01_Shell入门", "02_VSCode", "03_Python"}
+        and p.relative_to(books_dir).parts[0] in {"01_Shell入门", "02_VSCode", "03_Python", "04_版本控制Git"}
     )
 )
 
@@ -264,13 +300,15 @@ group_titles = {
     "shell": "Shell 入门",
     "vscode": "VSCode",
     "python": "Python 环境管理",
+    "git": "Git 版本管理",
 }
 
 group_order = {
     "shell": 0,
     "vscode": 1,
     "python": 2,
-    "books": 3,
+    "git": 3,
+    "books": 4,
 }
 
 def group_sort_key(group_name: str) -> tuple[int, str]:
