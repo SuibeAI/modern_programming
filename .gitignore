@@ -4,3 +4,4 @@ _build/
 __pycache__/
 *.py[cod]
 .DS_Store
+books/05_大模型基础与API编程/.env

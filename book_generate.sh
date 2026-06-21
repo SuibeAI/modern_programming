@@ -276,7 +276,43 @@ def create_git_aliases() -> list[Path]:
         created.append(dest)
     return created
 
-alias_pages = create_shell_aliases() + create_vscode_aliases() + create_python_aliases() + create_git_aliases()
+def create_llm_aliases() -> list[Path]:
+    src_dir = books_dir / "05_大模型基础与API编程"
+    if not src_dir.exists():
+        return []
+
+    dest_dir = books_dir / "llm"
+    shutil.rmtree(dest_dir, ignore_errors=True)
+
+    def ignore_notebooks(_dir: str, names: list[str]) -> list[str]:
+        return [name for name in names if Path(name).suffix.lower() in {".ipynb", ".md", ".rst"}]
+
+    shutil.copytree(src_dir, dest_dir, ignore=ignore_notebooks)
+
+    file_map = {
+        "01_概览.ipynb": "index.ipynb",
+        "02_语言模型基本原理.ipynb": "principles.ipynb",
+        "03_Prompt与对话格式.ipynb": "prompt.ipynb",
+        "04_API调用基础.ipynb": "api-basics.ipynb",
+        "05_Prompt工程示例.ipynb": "prompt-engineering.ipynb",
+        "06_命令行版聊天应用.ipynb": "cmd-chat.ipynb",
+        "07_Web版聊天应用.ipynb": "web-chat.ipynb",
+    }
+
+    created = []
+    for old_name, new_name in file_map.items():
+        src = src_dir / old_name
+        if not src.exists():
+            continue
+        dest = dest_dir / new_name
+        copy_with_rewritten_links(src, dest, file_map)
+        rel = dest.relative_to(source_dir).as_posix()
+        alias_titles[rel] = Path(old_name).stem
+        page_order[rel] = len(created)
+        created.append(dest)
+    return created
+
+alias_pages = create_shell_aliases() + create_vscode_aliases() + create_python_aliases() + create_git_aliases() + create_llm_aliases()
 
 pages = sorted(
     p for p in books_dir.rglob("*")
@@ -284,7 +320,7 @@ pages = sorted(
     and not any(part.startswith((".", "_")) for part in p.relative_to(books_dir).parts)
     and not (
         p.relative_to(books_dir).parts
-        and p.relative_to(books_dir).parts[0] in {"01_Shell入门", "02_VSCode", "03_Python", "04_版本控制Git"}
+        and p.relative_to(books_dir).parts[0] in {"01_Shell入门", "02_VSCode", "03_Python", "04_版本控制Git", "05_大模型基础与API编程"}
     )
 )
 
@@ -301,6 +337,7 @@ group_titles = {
     "vscode": "VSCode",
     "python": "Python 环境管理",
     "git": "Git 版本管理",
+    "llm": "大模型基础与 API 编程",
 }
 
 group_order = {
@@ -308,7 +345,8 @@ group_order = {
     "vscode": 1,
     "python": 2,
     "git": 3,
-    "books": 4,
+    "llm": 4,
+    "books": 5,
 }
 
 def group_sort_key(group_name: str) -> tuple[int, str]:
