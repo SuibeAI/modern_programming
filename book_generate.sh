@@ -407,6 +407,14 @@ for group_name in sorted(groups, key=group_sort_key):
     index_lines.append("")
 
 (source_dir / "index.md").write_text("\n".join(index_lines), encoding="utf-8")
+(source_dir / "favicon.svg").write_text(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+    '<rect width="64" height="64" rx="12" fill="#1f2937"/>'
+    '<text x="32" y="42" text-anchor="middle" font-size="32" fill="#ffffff" '
+    'font-family="Arial, sans-serif">AI</text>'
+    '</svg>\n',
+    encoding="utf-8",
+)
 
 def rel(path: Path) -> str:
     return path.relative_to(source_dir).as_posix()
@@ -431,6 +439,7 @@ myst.extend([
     "site:",
     "  options:",
     "    folders: true",
+    "    favicon: favicon.svg",
     f"  template: {site_template}",
     "",
 ])
@@ -450,7 +459,7 @@ build_site() {
     "${JB_CMD[@]}" build --html --force
   ) || {
     local status=$?
-    if [[ -d "$source_dir/_build/html" ]]; then
+    if [[ -f "$source_dir/_build/html/index.html" ]]; then
       echo "Warning: jupyter-book exited with status $status after producing HTML; continuing." >&2
     else
       return "$status"
@@ -492,6 +501,15 @@ pages = sorted(
 if not pages:
     raise SystemExit(f"No notebook or markdown pages found in {book_dir}")
 
+(book_dir / "favicon.svg").write_text(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+    '<rect width="64" height="64" rx="12" fill="#1f2937"/>'
+    '<text x="32" y="42" text-anchor="middle" font-size="32" fill="#ffffff" '
+    'font-family="Arial, sans-serif">AI</text>'
+    '</svg>\n',
+    encoding="utf-8",
+)
+
 myst = [
     "version: 1",
     "project:",
@@ -508,6 +526,7 @@ myst.extend([
     "site:",
     "  options:",
     "    folders: true",
+    "    favicon: favicon.svg",
     f"  template: {site_template}",
     "",
 ])
