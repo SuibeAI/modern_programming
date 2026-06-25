@@ -328,11 +328,8 @@ def create_agent_aliases() -> list[Path]:
     file_map = {
         "01_概览.ipynb": "index.ipynb",
         "02_你的第一个Agent.ipynb": "first-agent.ipynb",
-        "03_工具执行与反馈.ipynb": "tools-feedback.ipynb",
-        "04_安全边界.ipynb": "safety.ipynb",
-        "05_Todo规划与维护.ipynb": "todo.ipynb",
-        "06_上下文管理.ipynb": "context.ipynb",
-        "07_综合练习.ipynb": "practice.ipynb",
+        "03_AgentSkill.ipynb": "agent-skill.ipynb",
+        "04_AgentMCP.ipynb": "agent-mcp.ipynb",
     }
 
     created = []
@@ -374,7 +371,7 @@ group_titles = {
     "python": "Python 环境管理",
     "git": "Git 版本管理",
     "llm": "大模型基础与 API 编程",
-    "agent": "单个 AI Coding Agent",
+    "agent": "06_Agent",
 }
 
 group_order = {
