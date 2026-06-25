@@ -330,6 +330,7 @@ def create_agent_aliases() -> list[Path]:
         "02_你的第一个Agent.ipynb": "first-agent.ipynb",
         "03_AgentSkill.ipynb": "agent-skill.ipynb",
         "04_AgentMCP.ipynb": "agent-mcp.ipynb",
+        "05_Agent_Harness.ipynb": "agent-harness.ipynb",
     }
 
     created = []
