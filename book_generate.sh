@@ -448,7 +448,14 @@ build_site() {
   (
     cd "$source_dir"
     "${JB_CMD[@]}" build --html --force
-  )
+  ) || {
+    local status=$?
+    if [[ -d "$source_dir/_build/html" ]]; then
+      echo "Warning: jupyter-book exited with status $status after producing HTML; continuing." >&2
+    else
+      return "$status"
+    fi
+  }
 
   rm -rf "$output_dir"
   mkdir -p "$output_dir"
