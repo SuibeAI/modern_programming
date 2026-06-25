@@ -5,3 +5,7 @@ __pycache__/
 *.py[cod]
 .DS_Store
 books/05_大模型基础与API编程/.env
+books/06_Agent/.env
+books/06_Agent/.memory/
+books/06_Agent/.tasks/
+reference
